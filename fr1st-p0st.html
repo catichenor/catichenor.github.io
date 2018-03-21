@@ -95,6 +95,10 @@ Summary: This is a test page, hopefully I can delete this.</p>
 <p>Make and test the site... wow that's ugly. Okay, at least let me change the post to this one I'm typing, I can update it later.</p>
 <p>Okay, that looks better, kinda. Now to publish to GitHub. Eh, looks like I didn't do the submodule thing correctly. Ugh. Okay, <code>cp -r output/* ../catichenor.github.io/</code> to the rescue here. I'll need to automate that plus probably some other stuff.</p>
 <p>Next on the todo list is to get the domain stuff set up and switch up the theme but at least we have a working site. Good night!</p>
+<hr>
+<p><strong>UPDATE:</strong> Okay, did a bit more tweaking here. It was bugging me that git submodules weren't being set up. After doing some digging, it looks like I need to run the following to get the submodule set up after the fact:</p>
+<div class="highlight"><pre><span></span>git submodule add https://github.com/catichenor/catichenor.github.io.git output
+</pre></div>
     </div><!-- /.entry-content -->
 
   </article>
