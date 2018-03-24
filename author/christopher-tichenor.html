@@ -25,6 +25,7 @@
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/algorithms.html">Algorithms</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/site.html">Site</a></li>
 						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="#">If you don’t do vegetables, do your drugs, and eat your algorithms, you can be big and strong like me!</a></li>
 
@@ -38,6 +39,52 @@
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/day-one.html">Thu 22 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-one.html" title="Permalink to Day One" rel="bookmark">Day One</a>
+		</h2>
+		<div class="entry-content">
+			<p>As noted in the Reddit article from yesterday, before going into algorithms you need to be solid on data structures and attempt to implement your own.</p>
+<p>Initially I was going to attempt to do arrays, linked lists, and stacks/queues today, but there's enough to do in arrays themselves to fill at least a day's work.</p>
+<h1>Arrays</h1>
+<h2>Arrays</h2>
+<p>I'm using <a href="https://dbader.org/blog/python-arrays">this article</a> for guidance.</p>
+<p>Arrays as defined here and in the article are collections of individual pieces of data that are stored contiguously in memory as opposed to pieces of data that are linked together and capable of occupying different areas of memory.</p>
+<p>From this article, Python has 3 types of arrays for different types of data:</p>
+<ul>
+<li><strong>Lists:</strong> basically dynamic arrays that allocate and release data as needed based on the number of items in them and are mutable. They support mixed data types, but are space inefficient because of this.</li>
+<li><strong>Tuples:</strong> arrays that cannot be added to or removed from, but also support different data types. If you add elements to a tuple, you create a new tuple.</li>
+<li><strong>array.array(s):</strong> <code>array.array</code> must be imported from a Python module and can only hold one type of data. They are more space-efficient than the above two array types, and can be appended to.</li>
+</ul>
+<p>There's another three types of arrays for single data types:</p>
+<ul>
+<li><strong>Strings:</strong> Immutable and only store single character <code>String</code> objects recursively.</li>
+<li><strong>Bytes:</strong> Also immutable, and can only store ints between 0-255
+    <code>python
+    &gt;&gt;&gt; bytes((0, 255))
+    b'\x00\xff'</code></li>
+<li><strong>Bytearrays:</strong> Mutable form of a byte object, can be added to, modified, and deleted from. Converting to a <code>byte</code> object is an O(n) process.</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/Array_data_type">Here's</a> the Wikipedia article on arrays. And <a href="https://stackoverflow.com/questions/4062752/in-what-structure-is-a-python-object-stored-in-memory#4062900">here's</a> a StackOverflow description of low-level implementation of Python array types.</p>
+<p>The task here to implement my own array in Python seems to be to create a Python object with the following attributes:</p>
+<ol>
+<li>Multiple items are stored in this object.</li>
+<li>Data is stored contiguously in memory.</li>
+<li>Data can be accessed by index.</li>
+</ol>
+<p>1 and 3 seem to be fairly simple. 2, however, is not from what I can tell. Looking through the Python docs, it looks like the way to create new data types is via <a href="https://docs.python.org/3.6/extending/newtypes.html">PyObject</a>. Backing out to the <a href="https://docs.python.org/3.6/extending/index.html">primary article that contains that article</a>, I'll basically need to drop back to C to be able to store memory contiguously...</p>
+<p>...Except even C doesn't seem to allow one to make an array without using an array, which feels like cheating. Perhaps a variation of <a href="https://www.quora.com/How-do-I-create-a-matrix-of-n*n-without-using-an-array-in-C-programming-language">this</a> might work (wait, nevermind, it also uses an array). I suppose I could also drop back to <a href="http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch12s04.html">assembler</a> but <em>wow</em> is that going into the weeds.</p>
+<p>Not a great start. Today's lesson is a bit of a failure, but at least I learned a lot. Maybe the correct approach for this will become more obvious as I study more.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/arrays.html" rel="tag">arrays</a>,  <a href="/tag/datastructures.html" rel="tag">datastructures</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
 		<div class="date"><a href="/mission-statement.html">Thu 22 March 2018</a></div>
 		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
