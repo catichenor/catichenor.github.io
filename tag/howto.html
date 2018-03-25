@@ -42,6 +42,156 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="/day-two.html">Sat 24 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-two.html" title="Permalink to Day Two" rel="bookmark">Day Two</a>
+		</h2>
+		<div class="entry-content">
+			<p>Well, if you need to use an array to create an array, I guess that's what I need to do. I suppose this makes sense given that the original computers were giant, inefficient memory arrays, so arrays are built in to the system.</p>
+<p>These exercises apply different limits on Python's "built-in" array.array construct.</p>
+<p>By the way, yes, I realize I could just inherit the previous classes for each iteration of the <code>IntArray</code>, but I'm not confident enough in my inheritance knowledge just yet.</p>
+<p>With that out of the way...</p>
+<hr>
+<p>First, we're just going to make a prototype of our array that doesn't really have any limits, other than being limited to <code>int</code>s:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+
+<span class="k">class</span> <span class="nc">IntArray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">coll</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's test it out:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array</span> <span class="o">=</span> <span class="n">IntArray</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">test_array</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># Returns: array(&#39;i&#39;, [1, 2, 3, 4, 5])</span>
+</pre></div>
+
+
+<p>So far so good, but what if we create a new <code>IntArray</code> with a String?</p>
+<div class="highlight"><pre><span></span><span class="n">test2</span> <span class="o">=</span> <span class="n">IntArray</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+<span class="c1"># Results in an exception, as expected.</span>
+</pre></div>
+
+
+<hr>
+<p>Now, let's give our array the ability to add items. We'll need to define an <code>add_data</code> method and call it in <code>__init__</code>, leveraging the <code>extend</code> functionality of <code>array.array</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IntArrayAdd</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now to test:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array2</span> <span class="o">=</span> <span class="n">IntArrayAdd</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">test_array2</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># Returns: array(&#39;i&#39;, [6, 7, 8, 9, 10])</span>
+</pre></div>
+
+
+<p>Let's add some data:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array2</span><span class="o">.</span><span class="n">add_data</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">test_array2</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># Returns: array(&#39;i&#39;, [6, 7, 8, 9, 10, 1, 2, 3, 4, 5])</span>
+</pre></div>
+
+
+<hr>
+<p>Now let's add an explicit limit on the amount of items that the array can hold, and throw an <code>AttributeError</code> if we try to stuff too much into it:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IntArrayAddCheck</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;There are too many items for the specified limit of this array.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Let's make sure we can't add too much to it when instantiating the class:</p>
+<div class="highlight"><pre><span></span><span class="c1"># test_array3 = IntArrayAddCheck([1,2,3,4,5], 3)  </span>
+<span class="c1"># Raises an AttributeError, as expected, we fed it 5 ints but only told it to hold 3.</span>
+</pre></div>
+
+
+<p>So far so good. Let's be nice to it now:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array4</span> <span class="o">=</span> <span class="n">IntArrayAddCheck</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">test_array4</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># Returns: array(&#39;i&#39;, [1, 2, 3, 4, 5])</span>
+</pre></div>
+
+
+<p>Now let's be mean again and try to give it more data:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array4</span><span class="o">.</span><span class="n">add_data</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="c1"># Raises an AttributeError</span>
+</pre></div>
+
+
+<p>w00t.</p>
+<hr>
+<p>This kinda bugs me though:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">test_array4</span><span class="p">)</span>
+<span class="c1"># Returns: &lt;__main__.IntArrayAddCheck object at 0x106f20780&gt;</span>
+</pre></div>
+
+
+<p>That's not great, but I also don't want to return the array data as is, since we know that this is going to be an <code>int</code> array. I just want to return the values as they appear inside the array.</p>
+<p>So, let's add a <code>__repr__</code> method to fix that:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IntArrayAddCheckRepr</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;There are too many items for the specified limit of this array.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And now to test that:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array6</span> <span class="o">=</span> <span class="n">IntArrayAddCheckRepr</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">test_array6</span><span class="p">)</span>
+<span class="c1"># Returns: [10, 9, 8, 7, 6]</span>
+</pre></div>
+
+
+<p>Yay.</p>
+<p>Slight problem, though. We can do this:</p>
+<div class="highlight"><pre><span></span><span class="n">test_array6</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">test_array6</span><span class="p">)</span>
+<span class="c1"># Returns: [10, 9, 8, 7, 6, 3, 4, 5]</span>
+</pre></div>
+
+
+<p>I think I'll need to leverage inheritance to block this. Eh, out of time, have to wait 'til later.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/arrays.html" rel="tag">arrays</a>,  <a href="/tag/datastructures.html" rel="tag">datastructures</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="/day-one.html">Thu 22 March 2018</a></div>
 		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
 			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
