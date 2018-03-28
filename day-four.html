@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>EatYourAlgorithms &mdash; Day Four</title>
+		<meta charset="utf-8" />
+                <!--<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>-->
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='//fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="EatYourAlgorithms — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">EatYourAlgorithms</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/algorithms.html">Algorithms</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/site.html">Site</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="#">If you don’t do vegetables, do your drugs, and eat your algorithms, you can be big and strong like me!</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/day-four.html">Tue 27 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-four.html" title="Permalink to Day Four" rel="bookmark">Day Four</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reviewing Arrays</h2>
+<p>Follow-up from yesterday: I got the Blue and Green channels mixed up, as apparent from the orange-ish hue of the red rather than magenta-ish.</p>
+<p>Now to today's lesson. </p>
+<hr>
+<p>There's 3 types of arrays that can hold different types of data in Python and 3 more that can hold only single types of data.</p>
+<ul>
+<li>Different Types<ul>
+<li>Lists</li>
+<li>Tuples</li>
+<li><code>array.array</code>s</li>
+</ul>
+</li>
+<li>Single Types<ul>
+<li>Strings</li>
+<li>Bytes</li>
+<li>Bytearrays</li>
+</ul>
+</li>
+</ul>
+<h3>Lists</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">wordlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">]</span>
+<span class="n">wordlist</span>
+<span class="c1"># Returns: [&#39;this&#39;, &#39;is&#39;, &#39;some&#39;, &#39;text&#39;]</span>
+<span class="n">wordlist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;changed&#39;</span>
+<span class="n">wordlist</span>
+<span class="c1"># Returns: [&#39;this&#39;, &#39;is&#39;, &#39;changed&#39;, &#39;text&#39;]</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Not the most space-efficient.</li>
+<li>Not the fastest collection type.</li>
+<li>Mutable</li>
+<li><a href="https://wiki.python.org/moin/TimeComplexity">Big O for major operations</a><ul>
+<li>Copy: O(n)</li>
+<li>Append: O(1)</li>
+<li>Insert: O(n)</li>
+<li>Delete Item: O(n)</li>
+<li>x in s: O(n)</li>
+<li>min, max: O(n)</li>
+<li>len: O(1)</li>
+</ul>
+</li>
+<li>Use cases<ul>
+<li>Functional programming</li>
+<li>Holding different types of data which must be changed over time</li>
+<li>Non-performance critical</li>
+<li>Limited datasets</li>
+</ul>
+</li>
+<li>Other notes<ul>
+<li><code>del a[4:10]</code> can be used to delete multiple items from a list</li>
+</ul>
+</li>
+</ul>
+<h3>Tuples</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">wordtuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
+<span class="n">wordtuple</span>
+<span class="c1"># Returns: (&#39;this&#39;, &#39;is&#39;, &#39;some&#39;, &#39;text&#39;)</span>
+<span class="n">wordtuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;changed&#39;</span>
+<span class="c1"># Exception:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># TypeError: &#39;tuple&#39; object does not support item assignment</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Also not super space-efficient.</li>
+<li>Faster than lists</li>
+<li>Not mutable.</li>
+<li>Tuples are bound by the same limits as a list (where applicable, you won't append/insert/delete from a tuple).</li>
+<li>Use cases<ul>
+<li>Functional programming</li>
+<li>Holding different types of data in a read-only fashion</li>
+<li>More performance critical</li>
+<li>Larger datasets</li>
+</ul>
+</li>
+<li>Other notes<ul>
+<li>A variant, the <a href="https://pymotw.com/2/collections/namedtuple.html">namedtuple</a> is a good alternative to dictionaries, assuming the value won't be changed.</li>
+</ul>
+</li>
+</ul>
+<h3><code>array.array</code></h3>
+<h4>Python 2 Example:</h4>
+<div class="highlight"><pre><span></span><span class="c1"># Behavior in Python 2</span>
+<span class="kn">import</span> <span class="nn">array</span>
+
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="n">wordarray</span>
+<span class="c1"># Returns: array(&#39;b&#39;, [116, 104, 105, 115, 32, 105, 115, 32, 115, 111, 109, 101, 32, 116, 101, 120, 116])</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="c1"># AttributeError:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># AttributeError: &#39;array.array&#39; object has no attribute &#39;tobytes&#39;</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">wordarray</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;__add__&#39;</span><span class="p">,</span> <span class="s1">&#39;__class__&#39;</span><span class="p">,</span> <span class="s1">&#39;__contains__&#39;</span><span class="p">,</span> <span class="s1">&#39;__copy__&#39;</span><span class="p">,</span> <span class="s1">&#39;__deepcopy__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s1">&#39;__iadd__&#39;</span><span class="p">,</span> <span class="s1">&#39;__imul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">,</span> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">,</span> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__mul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__rmul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer_info&#39;</span><span class="p">,</span> <span class="s1">&#39;byteswap&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;extend&#39;</span><span class="p">,</span> <span class="s1">&#39;fromfile&#39;</span><span class="p">,</span> <span class="s1">&#39;fromlist&#39;</span><span class="p">,</span> <span class="s1">&#39;fromstring&#39;</span><span class="p">,</span> <span class="s1">&#39;fromunicode&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;insert&#39;</span><span class="p">,</span> <span class="s1">&#39;itemsize&#39;</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">,</span> <span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="s1">&#39;tofile&#39;</span><span class="p">,</span> <span class="s1">&#39;tolist&#39;</span><span class="p">,</span> <span class="s1">&#39;tostring&#39;</span><span class="p">,</span> <span class="s1">&#39;tounicode&#39;</span><span class="p">,</span> <span class="s1">&#39;typecode&#39;</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">]</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tounicode</span><span class="p">()</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># ValueError: tounicode() may only be called on type &#39;u&#39; arrays</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+<span class="s1">&#39;this is some text&#39;</span>
+</pre></div>
+
+
+<h4>Python 3 Example:</h4>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="c1"># TypeError:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># TypeError: cannot use a str to initialize an array with typecode &#39;b&#39;</span>
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="n">wordarray</span>
+<span class="c1"># Returns: array(&#39;u&#39;, &#39;this is some text&#39;)</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="c1"># Returns: </span>
+<span class="c1"># b&#39;t\x00\x00\x00h\x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00s\x00\x00\x00o\x00\x00\x00m\x00\x00\x00e\x00\x00\x00 \x00\x00\x00t\x00\x00\x00e\x00\x00\x00x\x00\x00\x00t\x00\x00\x00&#39;</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+<span class="c1"># Returns: </span>
+<span class="c1"># b&#39;t\x00\x00\x00h\x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00s\x00\x00\x00o\x00\x00\x00m\x00\x00\x00e\x00\x00\x00 \x00\x00\x00t\x00\x00\x00e\x00\x00\x00x\x00\x00\x00t\x00\x00\x00&#39;</span>
+</pre></div>
+
+
+<p><code>tobytes()</code> and <code>tostring()</code> are the same in Python 3, I assume the latter is going to disappear eventually. I suppose that makes sense as a byte representation for Unicode.</p>
+<h4>Notes:</h4>
+<ul>
+<li>More space efficient than lists or tuples</li>
+<li>Not quite as fast as lists (usually)</li>
+<li>Mutable</li>
+<li>Other notes<ul>
+<li>Basically a thin-wrapper around C arrays.</li>
+<li>Can <a href="https://www.python.org/doc/essays/list2str/"><em>maybe</em></a> be faster than lists</li>
+</ul>
+</li>
+</ul>
+<h3>Strings</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">teststring</span> <span class="o">=</span> <span class="s1">&#39;This is some text&#39;</span>
+<span class="n">teststring</span>
+<span class="c1"># Returns: &#39;This is some text&#39;</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Good for storage of Unicode text</li>
+<li>Immutable</li>
+<li>Recursive: each character in a String is, in turn, another String</li>
+</ul>
+<h3>Bytes</h3>
+<p>Continuing from the above #### example:</p>
+<div class="highlight"><pre><span></span><span class="n">testbytes</span> <span class="o">=</span> <span class="n">teststring</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">testbytes</span>
+<span class="c1"># Returns: b&#39;This is some text&#39;</span>
+<span class="n">testbytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Returns: 84</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Stores bytes (values between 0-255)</li>
+<li>Each single byte is represented as an integer</li>
+<li>In a sequence, bytes are represented as hexadecimal</li>
+<li>Immutable</li>
+<li>Good for storing things like 8bpc image data, hexadecimal data or ASCII characters</li>
+</ul>
+<h3>Bytearrays</h3>
+<p>Further continuing from the above examples:</p>
+<div class="highlight"><pre><span></span><span class="n">testbytearray</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">testbytes</span><span class="p">)</span>
+<span class="n">testbytearray</span>
+<span class="c1"># Returns: bytearray(b&#39;This is some text&#39;)</span>
+<span class="k">del</span><span class="p">(</span><span class="n">testbytearray</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+<span class="n">testbytearray</span>
+<span class="c1"># Returns: bytearray(b&#39;This is some txt&#39;)</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Also stores bytes</li>
+<li>Mutable, supports all of the operations of other <a href="https://docs.python.org/3.1/library/stdtypes.html#typesseq-mutable">mutable sequence types</a></li>
+<li>Good for storing the same types of data, but in mutable form.</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/arrays.html" rel="tag">arrays</a>,  <a href="/tag/bytearrays.html" rel="tag">bytearrays</a>,  <a href="/tag/bytes.html" rel="tag">bytes</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/lists.html" rel="tag">lists</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>,  <a href="/tag/review.html" rel="tag">review</a>,  <a href="/tag/strings.html" rel="tag">strings</a>,  <a href="/tag/tuples.html" rel="tag">tuples</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

@@ -42,6 +42,214 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="/day-four.html">Tue 27 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-four.html" title="Permalink to Day Four" rel="bookmark">Day Four</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reviewing Arrays</h2>
+<p>Follow-up from yesterday: I got the Blue and Green channels mixed up, as apparent from the orange-ish hue of the red rather than magenta-ish.</p>
+<p>Now to today's lesson. </p>
+<hr>
+<p>There's 3 types of arrays that can hold different types of data in Python and 3 more that can hold only single types of data.</p>
+<ul>
+<li>Different Types<ul>
+<li>Lists</li>
+<li>Tuples</li>
+<li><code>array.array</code>s</li>
+</ul>
+</li>
+<li>Single Types<ul>
+<li>Strings</li>
+<li>Bytes</li>
+<li>Bytearrays</li>
+</ul>
+</li>
+</ul>
+<h3>Lists</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">wordlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">]</span>
+<span class="n">wordlist</span>
+<span class="c1"># Returns: [&#39;this&#39;, &#39;is&#39;, &#39;some&#39;, &#39;text&#39;]</span>
+<span class="n">wordlist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;changed&#39;</span>
+<span class="n">wordlist</span>
+<span class="c1"># Returns: [&#39;this&#39;, &#39;is&#39;, &#39;changed&#39;, &#39;text&#39;]</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Not the most space-efficient.</li>
+<li>Not the fastest collection type.</li>
+<li>Mutable</li>
+<li><a href="https://wiki.python.org/moin/TimeComplexity">Big O for major operations</a><ul>
+<li>Copy: O(n)</li>
+<li>Append: O(1)</li>
+<li>Insert: O(n)</li>
+<li>Delete Item: O(n)</li>
+<li>x in s: O(n)</li>
+<li>min, max: O(n)</li>
+<li>len: O(1)</li>
+</ul>
+</li>
+<li>Use cases<ul>
+<li>Functional programming</li>
+<li>Holding different types of data which must be changed over time</li>
+<li>Non-performance critical</li>
+<li>Limited datasets</li>
+</ul>
+</li>
+<li>Other notes<ul>
+<li><code>del a[4:10]</code> can be used to delete multiple items from a list</li>
+</ul>
+</li>
+</ul>
+<h3>Tuples</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">wordtuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
+<span class="n">wordtuple</span>
+<span class="c1"># Returns: (&#39;this&#39;, &#39;is&#39;, &#39;some&#39;, &#39;text&#39;)</span>
+<span class="n">wordtuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;changed&#39;</span>
+<span class="c1"># Exception:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># TypeError: &#39;tuple&#39; object does not support item assignment</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Also not super space-efficient.</li>
+<li>Faster than lists</li>
+<li>Not mutable.</li>
+<li>Tuples are bound by the same limits as a list (where applicable, you won't append/insert/delete from a tuple).</li>
+<li>Use cases<ul>
+<li>Functional programming</li>
+<li>Holding different types of data in a read-only fashion</li>
+<li>More performance critical</li>
+<li>Larger datasets</li>
+</ul>
+</li>
+<li>Other notes<ul>
+<li>A variant, the <a href="https://pymotw.com/2/collections/namedtuple.html">namedtuple</a> is a good alternative to dictionaries, assuming the value won't be changed.</li>
+</ul>
+</li>
+</ul>
+<h3><code>array.array</code></h3>
+<h4>Python 2 Example:</h4>
+<div class="highlight"><pre><span></span><span class="c1"># Behavior in Python 2</span>
+<span class="kn">import</span> <span class="nn">array</span>
+
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="n">wordarray</span>
+<span class="c1"># Returns: array(&#39;b&#39;, [116, 104, 105, 115, 32, 105, 115, 32, 115, 111, 109, 101, 32, 116, 101, 120, 116])</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="c1"># AttributeError:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># AttributeError: &#39;array.array&#39; object has no attribute &#39;tobytes&#39;</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">wordarray</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;__add__&#39;</span><span class="p">,</span> <span class="s1">&#39;__class__&#39;</span><span class="p">,</span> <span class="s1">&#39;__contains__&#39;</span><span class="p">,</span> <span class="s1">&#39;__copy__&#39;</span><span class="p">,</span> <span class="s1">&#39;__deepcopy__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s1">&#39;__iadd__&#39;</span><span class="p">,</span> <span class="s1">&#39;__imul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">,</span> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">,</span> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__mul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__rmul__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setitem__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setslice__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s1">&#39;append&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer_info&#39;</span><span class="p">,</span> <span class="s1">&#39;byteswap&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;extend&#39;</span><span class="p">,</span> <span class="s1">&#39;fromfile&#39;</span><span class="p">,</span> <span class="s1">&#39;fromlist&#39;</span><span class="p">,</span> <span class="s1">&#39;fromstring&#39;</span><span class="p">,</span> <span class="s1">&#39;fromunicode&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;insert&#39;</span><span class="p">,</span> <span class="s1">&#39;itemsize&#39;</span><span class="p">,</span> <span class="s1">&#39;pop&#39;</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">,</span> <span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="s1">&#39;tofile&#39;</span><span class="p">,</span> <span class="s1">&#39;tolist&#39;</span><span class="p">,</span> <span class="s1">&#39;tostring&#39;</span><span class="p">,</span> <span class="s1">&#39;tounicode&#39;</span><span class="p">,</span> <span class="s1">&#39;typecode&#39;</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">]</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tounicode</span><span class="p">()</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># ValueError: tounicode() may only be called on type &#39;u&#39; arrays</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+<span class="s1">&#39;this is some text&#39;</span>
+</pre></div>
+
+
+<h4>Python 3 Example:</h4>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="c1"># TypeError:</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="c1"># TypeError: cannot use a str to initialize an array with typecode &#39;b&#39;</span>
+<span class="n">wordarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;this is some text&#39;</span><span class="p">)</span>
+<span class="n">wordarray</span>
+<span class="c1"># Returns: array(&#39;u&#39;, &#39;this is some text&#39;)</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="c1"># Returns: </span>
+<span class="c1"># b&#39;t\x00\x00\x00h\x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00s\x00\x00\x00o\x00\x00\x00m\x00\x00\x00e\x00\x00\x00 \x00\x00\x00t\x00\x00\x00e\x00\x00\x00x\x00\x00\x00t\x00\x00\x00&#39;</span>
+<span class="n">wordarray</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+<span class="c1"># Returns: </span>
+<span class="c1"># b&#39;t\x00\x00\x00h\x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00i\x00\x00\x00s\x00\x00\x00 \x00\x00\x00s\x00\x00\x00o\x00\x00\x00m\x00\x00\x00e\x00\x00\x00 \x00\x00\x00t\x00\x00\x00e\x00\x00\x00x\x00\x00\x00t\x00\x00\x00&#39;</span>
+</pre></div>
+
+
+<p><code>tobytes()</code> and <code>tostring()</code> are the same in Python 3, I assume the latter is going to disappear eventually. I suppose that makes sense as a byte representation for Unicode.</p>
+<h4>Notes:</h4>
+<ul>
+<li>More space efficient than lists or tuples</li>
+<li>Not quite as fast as lists (usually)</li>
+<li>Mutable</li>
+<li>Other notes<ul>
+<li>Basically a thin-wrapper around C arrays.</li>
+<li>Can <a href="https://www.python.org/doc/essays/list2str/"><em>maybe</em></a> be faster than lists</li>
+</ul>
+</li>
+</ul>
+<h3>Strings</h3>
+<h4>Example:</h4>
+<div class="highlight"><pre><span></span><span class="n">teststring</span> <span class="o">=</span> <span class="s1">&#39;This is some text&#39;</span>
+<span class="n">teststring</span>
+<span class="c1"># Returns: &#39;This is some text&#39;</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Good for storage of Unicode text</li>
+<li>Immutable</li>
+<li>Recursive: each character in a String is, in turn, another String</li>
+</ul>
+<h3>Bytes</h3>
+<p>Continuing from the above #### example:</p>
+<div class="highlight"><pre><span></span><span class="n">testbytes</span> <span class="o">=</span> <span class="n">teststring</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">testbytes</span>
+<span class="c1"># Returns: b&#39;This is some text&#39;</span>
+<span class="n">testbytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Returns: 84</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Stores bytes (values between 0-255)</li>
+<li>Each single byte is represented as an integer</li>
+<li>In a sequence, bytes are represented as hexadecimal</li>
+<li>Immutable</li>
+<li>Good for storing things like 8bpc image data, hexadecimal data or ASCII characters</li>
+</ul>
+<h3>Bytearrays</h3>
+<p>Further continuing from the above examples:</p>
+<div class="highlight"><pre><span></span><span class="n">testbytearray</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">testbytes</span><span class="p">)</span>
+<span class="n">testbytearray</span>
+<span class="c1"># Returns: bytearray(b&#39;This is some text&#39;)</span>
+<span class="k">del</span><span class="p">(</span><span class="n">testbytearray</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+<span class="n">testbytearray</span>
+<span class="c1"># Returns: bytearray(b&#39;This is some txt&#39;)</span>
+</pre></div>
+
+
+<h4>Notes:</h4>
+<ul>
+<li>Also stores bytes</li>
+<li>Mutable, supports all of the operations of other <a href="https://docs.python.org/3.1/library/stdtypes.html#typesseq-mutable">mutable sequence types</a></li>
+<li>Good for storing the same types of data, but in mutable form.</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/arrays.html" rel="tag">arrays</a>,  <a href="/tag/bytearrays.html" rel="tag">bytearrays</a>,  <a href="/tag/bytes.html" rel="tag">bytes</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/lists.html" rel="tag">lists</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>,  <a href="/tag/review.html" rel="tag">review</a>,  <a href="/tag/strings.html" rel="tag">strings</a>,  <a href="/tag/tuples.html" rel="tag">tuples</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="/day-three.html">Sun 25 March 2018</a></div>
 		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
 			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
@@ -102,7 +310,8 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>b&#39;BM6v/\x00\x00\x00\x00\x006\x00\x00&#39;
+<p>And we get...</p>
+<div class="highlight"><pre><span></span>    b&#39;BM6v/\x00\x00\x00\x00\x006\x00\x00&#39;
 </pre></div>
 
 
@@ -173,6 +382,8 @@
     57:255
     58:255
     59:255
+...more of 255 for a long time...
+...then other numbers, then more 255s, etc....
 </pre></div>
 
 
@@ -724,88 +935,8 @@
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/c.html" rel="tag">C</a>,  <a href="/tag/c.html" rel="tag">C++</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/java.html" rel="tag">Java</a>,  <a href="/tag/javascript.html" rel="tag">JavaScript</a>,  <a href="/tag/learning.html" rel="tag">learning</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">Python</a>    		</span>
 	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="/fr1st-p0st.html">Tue 20 March 2018</a></div>
-		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
-			<span class="cat-links"><a href="/category/site.html" title="View all posts in Site" rel="category tag">Site</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="/fr1st-p0st.html" title="Permalink to Fr1st P0st" rel="bookmark">Fr1st P0st</a>
-		</h2>
-		<div class="entry-content">
-			<p>Yes, this dates me as an olde time Slashdot user. Buck feta!</p>
-<p>I’m writing this before I’ve even registered my domain because I want everything <em>about</em> this site chronicled <em>in</em> the site. I’ll get to my mission statement in the next post.</p>
-<p>Apologies for the stream-of-consciousness nature of the prose here.</p>
-<h2>Domain Registrar</h2>
-<p>First order of business is to pick a domain registrar... time to start Googling. Hm, a couple of hits, a fair amount of what looks like sponsored posts... GoDaddy is fairly low-ranked which is a good sign... <a href="https://makeawebsitehub.com/go/namecheap">NameCheap</a> and <a href="https://makeawebsitehub.com/go/bluehost">BlueHost</a> might work? Providers may be gaming the algorithm, DuckDuckGo to the rescue! </p>
-<p>Ech, a few articles from 2010 and 2012... </p>
-<p>Ooh, <a href="https://makeawebsitehub.com/reviews/domain-registrars/">this is a nice article</a>.</p>
-<p>Looks like NameCheap it is. I'll follow up if they screw me over.</p>
-<h2>Site Architecture</h2>
-<p>Next is how to actually implement the site. I don't really care for comments, my Wordpress site from 6-7 years ago had its comments system overrun by Russian hackers, which I blocked by disabling the comments section and removing them from the stylesheet, so I'd rather just not have them altogether. </p>
-<p>A static site generator looks to be the right tool here, and I could probably leverage GitHub for hosting. Jekyll is the obvious choice, except that it'd require that I learn Ruby for modifications and Ruby is... meh. Unless you're looking to hire me, in which case, I <em>love</em> Ruby!</p>
-<p>Off to <a href="https://github.com/vinta/awesome-python#static-site-generator">Awesome Python</a>... quite a few options here, looks like <a href="https://github.com/eudicots/Cactus">Cactus</a> runs on Django, also meh... <a href="https://github.com/hyde/hyde">Hyde</a> (I see what they did there) looks promising, but hasn't been updated in about two years. <a href="https://github.com/getnikola/nikola">Nikola</a> seems like a strong contender, last update was a few hours ago, might be a bit heavyweight, though... <a href="https://github.com/getpelican/pelican">Pelican</a> looks like a contender. <a href="https://github.com/vladris/tinkerer/">Tinkerer</a> doesn't really look compatible with my knowledge base.</p>
-<p>So... Nikola or Pelican. Both seem to have pretty <a href="https://fedoramagazine.org/make-github-pages-blog-with-pelican/">decent</a> <a href="http://journalpanic.com/pyhi/posts/make-your-own-blog-with-github-pages-and-nikola/">tutorials</a>. Nikola looks to have a direct CLI for GitHub pages, which is nice, but also still looks fairly complicated. I think I'll go with Pelican for now, looks like it should be fairly easy to switch out if something doesn't pan out.</p>
-<h2>Building the Site</h2>
-<p>Time to make a <a href="https://pages.github.com">GitHub Pages</a>, um, page? Go through the tutorial, la la la... okay done, go to the site... not working? Try again a minute later... now it works. "Hello World" indeed.</p>
-<p>Okay now to set up Pelican. Hm, instructions also want me to make a <code>[username].github.io-src</code> repo, okay, done... now it wants me to install the Python Pelican package? I'm not on Fedora so, no. I should probably pip install in a virtualenv... all the tutorials say to have a dedicated Pelican virtualenv? That doesn't sound right, but whatever. </p>
-<p>Alright, looks like I should probably use this sequence:</p>
-<div class="highlight"><pre><span></span>python3 -m venv Pelican
-<span class="nb">cd</span> Pelican
-<span class="nb">source</span> bin/activate
-</pre></div>
-
-
-<p>Okay, now we're in our virtualenv. Now to install Pelican and a few dependencies:</p>
-<div class="highlight"><pre><span></span>pip3 install pelican
-pip3 install Markdown typogrify
-</pre></div>
-
-
-<p>Okay, now we have our packages, time to set up the site. Doesn't seem right to do it here, maybe I can go back to the other directory?</p>
-<div class="highlight"><pre><span></span><span class="nb">cd</span> ../catichenor.github.io-src
-</pre></div>
-
-
-<p>The next step, which I assume to be <code>git submodule add git@github.com:catichenor/catichenor.github.io.git output</code> from the tutorial, doesn't work. Eh, maybe just skip straight to:</p>
-<div class="highlight"><pre><span></span>pelican-quickstart
-</pre></div>
-
-
-<p>Okay done.</p>
-<p>Now to write up a post based on the example from the docs:</p>
-<div class="highlight"><pre><span></span>Title: This is a test.
-Date: 2018-03-20 15:18
-Modified: 2018-03-20 15:20
-Category: Site
-Tags: pelican, publishing
-Slug: this-is-a-test
-Authors: Christopher Tichenor
-Summary: This is a test page, hopefully I can delete this.
-
-This is a test. This is only a test.
-</pre></div>
-
-
-<p>Make and test the site... wow that's ugly. Okay, at least let me change the post to this one I'm typing, I can update it later.</p>
-<p>Okay, that looks better, kinda. Now to publish to GitHub. Eh, looks like I didn't do the submodule thing correctly. Ugh. Okay, <code>cp -r output/* ../catichenor.github.io/</code> to the rescue here. I'll need to automate that plus probably some other stuff.</p>
-<p>Next on the todo list is to get the domain stuff set up and switch up the theme but at least we have a working site. Good night!</p>
-<hr>
-<p><strong>UPDATE:</strong> Okay, did a bit more tweaking here. It was bugging me that git submodules weren't being set up. After doing some digging, it looks like I need to run the following to get the submodule set up after the fact:</p>
-<div class="highlight"><pre><span></span>git submodule add https://github.com/catichenor/catichenor.github.io.git output
-</pre></div>
-
-
-<hr>
-<p><strong>ANOTHER UPDATE:</strong> Wow, no offense to most Pelican theme makers, but most Pelican themes look awful. Chunk looks pretty decent, let's apply that... okay, I need to add the entry to the <code>pelicanconf.py</code> file in the page's source repo.</p>
-<p>Okay, Chunk definitely looks better but I need to modify the links... done. The "SITE" link is annoying but I'll figure out how to hide that later.</p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/backend.html" rel="tag">backend</a>,  <a href="/tag/bash.html" rel="tag">bash</a>,  <a href="/tag/documentation.html" rel="tag">documentation</a>,  <a href="/tag/domain.html" rel="tag">domain</a>,  <a href="/tag/git.html" rel="tag">git</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/meta.html" rel="tag">meta</a>,  <a href="/tag/python.html" rel="tag">python</a>,  <a href="/tag/scripting.html" rel="tag">scripting</a>,  <a href="/tag/site.html" rel="tag">site</a>    		</span>
-	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
+		<div class="nav-next"><a href="/tag/python2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
 </div>
 		</div>
 		
