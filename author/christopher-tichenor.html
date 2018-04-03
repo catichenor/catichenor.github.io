@@ -40,6 +40,167 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="/day-five.html">Wed 28 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-five.html" title="Permalink to Day Five" rel="bookmark">Day Five</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Linked Lists</h2>
+<p>To get this off to a banging start, here's a <a href="https://www.codeproject.com/articles/340797/number-crunching-why-you-should-never-ever-ever-us">fun article</a>. It's click-baity but conveys the idea that one should never use a linked list for number crunching. Upon reflection, that seems fairly obvious.</p>
+<p>Today I'm using <a href="http://www.stackabuse.com/python-linked-lists/">this article</a> for reference. There are two types of linked lists:</p>
+<ol>
+<li>Single-linked</li>
+<li>Double-linked</li>
+</ol>
+<h3>Single-linked list</h3>
+<p>I understand the concept of the linked list, so I only really referred to the reference article for method names (and even then, I threw some of those out). I could post the piece-by-piece framing of the code, but I'll only post the final iteration of the code here:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinkedList</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">repr_out</span> <span class="o">=</span> <span class="s1">&#39;Linked List: &#39;</span>
+        <span class="k">while</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
+                <span class="n">repr_out</span> <span class="o">=</span> <span class="n">repr_out</span> <span class="o">+</span> <span class="s1">&#39; -&gt; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">repr_out</span> <span class="o">=</span> <span class="n">repr_out</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span> <span class="n">repr_out</span>
+
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">item_node</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">item_node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">item_node</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">item_node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">item_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">while</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">query</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">previous_node</span><span class="p">,</span> <span class="n">current_node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+                <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="n">previous_node</span><span class="p">,</span> <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">previous_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="s1">&#39;Deleted &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This seems to work pretty well in the informal tests I've made:</p>
+<div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;blah&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;hey&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;blah&#39;</span>
+</pre></div>
+
+
+<p>So far so good.</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+
+<p>That call returns nothing, as I'd expect being that it should return <code>None</code>.</p>
+<p>So is the node after head the same as the tail?</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="n">test</span><span class="o">.</span><span class="n">tail</span>
+<span class="c1"># Returns: True</span>
+</pre></div>
+
+
+<p>It sure is!</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">length</span>
+<span class="c1"># Returns: 2</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;yo&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;yo&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+</pre></div>
+
+
+<p>Now lets's see how <code>__repr__</code> works:</p>
+<div class="highlight"><pre><span></span><span class="n">test</span>
+<span class="c1"># Returns: Linked List: blah -&gt; hey -&gt; yo</span>
+</pre></div>
+
+
+<p>Nice. Can we delete items?</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">remove_item</span><span class="p">(</span><span class="s1">&#39;hey&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;yo&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span>
+<span class="c1"># Returns: blah</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">tail</span>
+<span class="c1"># Returns: yo</span>
+</pre></div>
+
+
+<p>Looks like it's gone, let's check <code>__repr__</code></p>
+<div class="highlight"><pre><span></span><span class="n">test</span>
+<span class="c1"># Returns: Linked List: blah -&gt; yo</span>
+</pre></div>
+
+
+<p>How about search? (This was implicitly checked with <code>remove_item</code>, but still, nice to see.)</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+<span class="c1"># Returns: (None, blah)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;yo&#39;</span><span class="p">)</span>
+<span class="c1"># Returns: (blah, yo)</span>
+</pre></div>
+
+
+<p>Okay, only a single-linked list for now, we'll do double-linked (hopefully) tomorrow.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/linkedlists.html" rel="tag">linkedlists</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="/day-four.html">Tue 27 March 2018</a></div>
 		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
 			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
@@ -208,7 +369,7 @@
 <li>Recursive: each character in a String is, in turn, another String</li>
 </ul>
 <h3>Bytes</h3>
-<p>Continuing from the above #### example:</p>
+<p>Continuing from the above example:</p>
 <div class="highlight"><pre><span></span><span class="n">testbytes</span> <span class="o">=</span> <span class="n">teststring</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 <span class="n">testbytes</span>
 <span class="c1"># Returns: b&#39;This is some text&#39;</span>
@@ -814,124 +975,6 @@
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/arrays.html" rel="tag">arrays</a>,  <a href="/tag/datastructures.html" rel="tag">datastructures</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="/mission-statement.html">Thu 22 March 2018</a></div>
-		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
-			<span class="cat-links"><a href="/category/site.html" title="View all posts in Site" rel="category tag">Site</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="/mission-statement.html" title="Permalink to Mission Statement" rel="bookmark">Mission Statement</a>
-		</h2>
-		<div class="entry-content">
-			<p>The goal of this site, at least for now, is for public accountability of my efforts toward learning algorithms. As I’ve found out, it’s really quite difficult to get a job involving even entry-level coding without knowledge of algorithms pulled randomly out of a book (and apparently unrelated to actual life/job experience). I’m definitely not an entry-level coder, but I’m largely self-taught and thus have little background in algorithms.</p>
-<p>So how shall I study these? There’s a few variables:</p>
-<ul>
-<li>What language to use.</li>
-<li>What sites provide the best path to learning.</li>
-<li>What learning method to use.</li>
-</ul>
-<h2>Language</h2>
-<p>I’m thinking four possibilities: C/C++, Java, JavaScript, Python </p>
-<h3>C, then C++ for OO</h3>
-<ul>
-<li>Pros<ul>
-<li>Closer to the metal, will learn manual memory management </li>
-<li>Many tutorials map closely to the specific data structure implementations of the C family </li>
-<li>Many imaging libraries, especially on embedded hardware, use C++</li>
-<li>More impressive in interviews(?)</li>
-</ul>
-</li>
-<li>Cons<ul>
-<li>I haven’t used either C or C++ much in a decade.</li>
-<li>Have to learn the idiosyncrasies of two (related) languages.</li>
-<li>Code is more “fiddly”, will take longer thair complete lessons.</li>
-<li>Have to manually manage memory.</li>
-</ul>
-</li>
-</ul>
-<h3>Java</h3>
-<ul>
-<li>Pros<ul>
-<li>Used by most automation engineers from what I can tell.</li>
-<li>Doesn’t have as many "sticky points" as C/C++</li>
-<li>Only have to use one language.</li>
-<li>My most recent programming classes used Java, so this should be “review”.</li>
-</ul>
-</li>
-<li>Cons<ul>
-<li>I haven’t used Java much in the past decade, either.</li>
-<li>Pretty far from technologies I’m interested in (except maybe Scala).</li>
-<li>In something of a no man’s land between low-level and high-level languages.</li>
-<li>Icky, boilerplate-y.</li>
-</ul>
-</li>
-</ul>
-<h3>JavaScript</h3>
-<ul>
-<li>Pros<ul>
-<li>Will he helpful for front-end web (and maybe backend) programming.</li>
-<li>I’ve used JavaScript much more recently than Java and C/C++</li>
-<li>Good excuse to learn new JavaScript enhancements </li>
-</ul>
-</li>
-<li>Cons<ul>
-<li>Not really suited for algorithms </li>
-<li>More of a functional language with C-ish syntax</li>
-<li>Almost a DSL for browsers (I know, Node.js makes it a server language, but that ship seems to be sailing...)</li>
-<li>High-level</li>
-</ul>
-</li>
-</ul>
-<h3>Python</h3>
-<ul>
-<li>Pros<ul>
-<li>The primary language I'm currently using.</li>
-<li>I've lots of tooling to support my work.</li>
-<li>Pythonista gives me a way to do exercises on-the-go.</li>
-<li>A very flexible language, can help with most of what I want to do.</li>
-<li>Popular, lots of tutorials available.</li>
-</ul>
-</li>
-<li>Cons<ul>
-<li>High-level</li>
-<li>Doesn't really map well to certain algorithms (can't work with pointers, etc.)</li>
-<li>A relatively slow language.</li>
-</ul>
-</li>
-</ul>
-<p>I <em>really</em> want to do C/C++ but time is of the essence so I think the best option here is Python.</p>
-<h2>Sites</h2>
-<p><a href="https://medium.freecodecamp.org/5-key-learnings-from-the-post-bootcamp-job-search-9a07468d2331">This page</a> I read last weekend was pretty insightful. Here's the sites directly lifted from that, seems like a good place to start:</p>
-<blockquote>
-<ul>
-<li><a href="https://www.interviewcake.com/">InterviewCake</a>: My favorite resource for data structures and algorithms. It breaks down solutions into step-by-step chunks — a great alternative to Cracking the Code Interview (CTCI). My only gripe is that they don’t have more problems!</li>
-<li><a href="https://www.hiredintech.com/classrooms/system-design/lesson/60">HiredInTech’s System Design Section</a>: A great guide for system design interview questions.</li>
-<li><a href="https://www.educative.io/collection/5642554087309312/5679846214598656">Coderust</a>: If you’re avoiding CTCI like the plague, Coderust 2.0 may be perfect for you. For $49, you get solutions in almost any programming language, with interactive diagrams.</li>
-<li><a href="https://www.reddit.com/r/cscareerquestions/comments/1jov24/heres_how_to_prepare_for_tech_interviews/">Reddit’s How to Prepare for Tech Interviews</a>: I constantly used this as a benchmark for how prepared I was.</li>
-<li><a href="https://github.com/h5bp/Front-end-Developer-Interview-Questions">Front End Interview Questions</a>: An <em>exhaustive</em> list of front-end questions.</li>
-<li><a href="https://leetcode.com/">Leetcode</a>: The go-to resource for algorithm and data structure questions. You can filter by company, so for example, you could get all the questions that Uber or Google typically ask.</li>
-</ul>
-</blockquote>
-<p>My notes on each:</p>
-<ul>
-<li><strong>InterviewCake:</strong> $99 for 1 year/50 hours of practice questions. Not too bad of a deal.</li>
-<li><strong>HiredInTech System Design:</strong> Looks like it's free? Not a bad deal at all. I think I got a pretty good idea of systems architecture in my last job but it might be good to formalize that.</li>
-<li><strong>Coderust/educative.io:</strong> $49 for lifetime access and 83 lessons. Also a pretty good deal.<ul>
-<li>By the way, CTCI refers to "Cracking the Coding Interview", which I am indeed avoiding like the plague (too popular).</li>
-</ul>
-</li>
-<li><strong>Reddit article:</strong> It's Reddit, so of course it's free*, but yeah, seems like a good benchmark.</li>
-<li><strong>GitHub Front End Interview Questions:</strong> I'm not terribly interested in front-end development, but this could be useful.</li>
-<li><strong>Leetcode:</strong> I downloaded an app that collects info from this site, not sure if it requires a subscription, which is $35/month or $159/year.</li>
-</ul>
-<h2>Learning Method</h2>
-<p>Judging from my typical work method, I'll set a goal of 3 algorithms a day, and adjust based on my pace. I'll also need to alter the questions to protect the innocent.</p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/c.html" rel="tag">C</a>,  <a href="/tag/c.html" rel="tag">C++</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/java.html" rel="tag">Java</a>,  <a href="/tag/javascript.html" rel="tag">JavaScript</a>,  <a href="/tag/learning.html" rel="tag">learning</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">Python</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-next"><a href="/author/christopher-tichenor2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>

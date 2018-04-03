@@ -42,6 +42,167 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="/day-five.html">Wed 28 March 2018</a></div>
+		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
+			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/day-five.html" title="Permalink to Day Five" rel="bookmark">Day Five</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Linked Lists</h2>
+<p>To get this off to a banging start, here's a <a href="https://www.codeproject.com/articles/340797/number-crunching-why-you-should-never-ever-ever-us">fun article</a>. It's click-baity but conveys the idea that one should never use a linked list for number crunching. Upon reflection, that seems fairly obvious.</p>
+<p>Today I'm using <a href="http://www.stackabuse.com/python-linked-lists/">this article</a> for reference. There are two types of linked lists:</p>
+<ol>
+<li>Single-linked</li>
+<li>Double-linked</li>
+</ol>
+<h3>Single-linked list</h3>
+<p>I understand the concept of the linked list, so I only really referred to the reference article for method names (and even then, I threw some of those out). I could post the piece-by-piece framing of the code, but I'll only post the final iteration of the code here:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinkedList</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">repr_out</span> <span class="o">=</span> <span class="s1">&#39;Linked List: &#39;</span>
+        <span class="k">while</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
+                <span class="n">repr_out</span> <span class="o">=</span> <span class="n">repr_out</span> <span class="o">+</span> <span class="s1">&#39; -&gt; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">repr_out</span> <span class="o">=</span> <span class="n">repr_out</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span> <span class="n">repr_out</span>
+
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">item_node</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">item_node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">item_node</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">item_node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">item_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">while</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">query</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">previous_node</span><span class="p">,</span> <span class="n">current_node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+                <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="n">previous_node</span><span class="p">,</span> <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">previous_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="s1">&#39;Deleted &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This seems to work pretty well in the informal tests I've made:</p>
+<div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;blah&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;hey&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;blah&#39;</span>
+</pre></div>
+
+
+<p>So far so good.</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+
+<p>That call returns nothing, as I'd expect being that it should return <code>None</code>.</p>
+<p>So is the node after head the same as the tail?</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="n">test</span><span class="o">.</span><span class="n">tail</span>
+<span class="c1"># Returns: True</span>
+</pre></div>
+
+
+<p>It sure is!</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">length</span>
+<span class="c1"># Returns: 2</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;yo&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;yo&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;hey&#39;</span>
+</pre></div>
+
+
+<p>Now lets's see how <code>__repr__</code> works:</p>
+<div class="highlight"><pre><span></span><span class="n">test</span>
+<span class="c1"># Returns: Linked List: blah -&gt; hey -&gt; yo</span>
+</pre></div>
+
+
+<p>Nice. Can we delete items?</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">remove_item</span><span class="p">(</span><span class="s1">&#39;hey&#39;</span><span class="p">)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># Returns: &#39;yo&#39;</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">head</span>
+<span class="c1"># Returns: blah</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">tail</span>
+<span class="c1"># Returns: yo</span>
+</pre></div>
+
+
+<p>Looks like it's gone, let's check <code>__repr__</code></p>
+<div class="highlight"><pre><span></span><span class="n">test</span>
+<span class="c1"># Returns: Linked List: blah -&gt; yo</span>
+</pre></div>
+
+
+<p>How about search? (This was implicitly checked with <code>remove_item</code>, but still, nice to see.)</p>
+<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+<span class="c1"># Returns: (None, blah)</span>
+
+<span class="n">test</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;yo&#39;</span><span class="p">)</span>
+<span class="c1"># Returns: (blah, yo)</span>
+</pre></div>
+
+
+<p>Okay, only a single-linked list for now, we'll do double-linked (hopefully) tomorrow.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/algorithms.html" rel="tag">algorithms</a>,  <a href="/tag/howto.html" rel="tag">howto</a>,  <a href="/tag/linkedlists.html" rel="tag">linkedlists</a>,  <a href="/tag/programming.html" rel="tag">programming</a>,  <a href="/tag/python.html" rel="tag">python</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="/day-four.html">Tue 27 March 2018</a></div>
 		<span class="byline">By <a href="/author/christopher-tichenor.html">Christopher Tichenor</a></span>
 			<span class="cat-links"><a href="/category/algorithms.html" title="View all posts in Algorithms" rel="category tag">Algorithms</a></span>
@@ -210,7 +371,7 @@
 <li>Recursive: each character in a String is, in turn, another String</li>
 </ul>
 <h3>Bytes</h3>
-<p>Continuing from the above #### example:</p>
+<p>Continuing from the above example:</p>
 <div class="highlight"><pre><span></span><span class="n">testbytes</span> <span class="o">=</span> <span class="n">teststring</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 <span class="n">testbytes</span>
 <span class="c1"># Returns: b&#39;This is some text&#39;</span>
